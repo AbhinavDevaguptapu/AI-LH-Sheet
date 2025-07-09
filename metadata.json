@@ -1,0 +1,5 @@
+{
+  "name": "AI Task Checklist Analyzer",
+  "description": "An application that fetches tasks from a data source, analyzes them against a predefined framework using the Gemini API, and displays an evaluation dashboard.",
+  "requestFramePermissions": []
+}
