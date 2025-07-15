@@ -1,7 +1,6 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Task, AnalysisStatus } from '../types';
-import { CheckCircleIcon, ExclamationTriangleIcon, SparklesIcon, DocumentTextIcon } from './icons';
+import { CheckCircleIcon, ExclamationTriangleIcon, DocumentTextIcon, ChevronDownIcon, ChevronUpIcon, SparklesIcon } from './icons';
 import LoadingSpinner from './LoadingSpinner';
 
 interface TaskCardProps {
@@ -10,9 +9,9 @@ interface TaskCardProps {
 
 const ScoreBadge: React.FC<{ score: number }> = ({ score }) => {
     const getScoreColor = () => {
-        if (score >= 75) return 'bg-status-pass/10 text-status-pass border-status-pass/30';
-        if (score >= 50) return 'bg-status-warn/10 text-status-warn border-status-warn/30';
-        return 'bg-status-fail/10 text-status-fail border-status-fail/30';
+        if (score >= 75) return 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/50 dark:text-green-300 dark:border-green-700';
+        if (score >= 50) return 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/50 dark:text-yellow-300 dark:border-yellow-700';
+        return 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/50 dark:text-red-300 dark:border-red-700';
     };
 
     return (
@@ -22,21 +21,9 @@ const ScoreBadge: React.FC<{ score: number }> = ({ score }) => {
     );
 };
 
-const StatusDisplay: React.FC<{ status: "Meets criteria" | "Needs improvement" }> = ({ status }) => {
-    const isPass = status === "Meets criteria";
-    const colorClasses = isPass ? 'text-green-600 dark:text-green-400' : 'text-orange-600 dark:text-orange-400';
-    const Icon = isPass ? CheckCircleIcon : ExclamationTriangleIcon;
-
-    return (
-        <div className={`flex items-center text-sm font-semibold ${colorClasses}`}>
-            <Icon className="w-4 h-4 mr-1.5" />
-            <span>{status}</span>
-        </div>
-    );
-};
-
 const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
-  const { rawText, analysis, status } = task;
+  const [isDetailsVisible, setIsDetailsVisible] = useState(false);
+  const { taskData, analysis, status } = task;
 
   const renderContent = () => {
     switch (status) {
@@ -60,27 +47,48 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         if (!analysis) return null;
         return (
           <div className="p-5">
-            <div className="flex justify-between items-start mb-4">
-              <StatusDisplay status={analysis.status} />
-              <ScoreBadge score={analysis.matchPercentage} />
+            <div className="flex justify-between items-start mb-3">
+                <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 flex-1 pr-2">
+                    {taskData.taskFrameworkCategory || 'No Category'}
+                </h3>
+                <ScoreBadge score={analysis.matchPercentage} />
             </div>
-            <div className="space-y-4">
-                <div>
-                    <h4 className="flex items-center text-xs font-semibold uppercase text-slate-400 dark:text-slate-500 mb-2">
-                        <DocumentTextIcon className="w-4 h-4 mr-2" />
-                        Original Task
-                    </h4>
-                    <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{rawText}</p>
-                </div>
-                 <div className="border-t border-slate-200 dark:border-slate-700 my-4"></div>
-                <div>
-                    <h4 className="flex items-center text-xs font-semibold uppercase text-slate-400 dark:text-slate-500 mb-2">
-                        <SparklesIcon className="w-4 h-4 mr-2 text-blue-500" />
-                        AI Rationale
-                    </h4>
-                    <p className="text-slate-800 dark:text-slate-200 text-sm font-medium">{analysis.rationale}</p>
-                </div>
+
+            <div className="mb-4">
+                <p className="text-sm text-slate-600 dark:text-slate-400 italic">{analysis.rationale}</p>
             </div>
+
+            <div className="bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg mb-4">
+                <h4 className="flex items-center text-xs font-semibold uppercase text-slate-400 dark:text-slate-500 mb-2">
+                    <DocumentTextIcon className="w-4 h-4 mr-2" />
+                    Original Task
+                </h4>
+                <p className="text-slate-700 dark:text-slate-300 font-medium text-sm">
+                    {taskData.task}
+                </p>
+            </div>
+
+            { (taskData.situation || taskData.behavior || taskData.impact || taskData.action) &&
+                <div>
+                    <button 
+                        onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+                        className="flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline focus:outline-none w-full text-left"
+                    >
+                        <SparklesIcon className="w-4 h-4 mr-2" />
+                        {isDetailsVisible ? 'Hide SBI-A Details' : 'Show SBI-A Details'}
+                        {isDetailsVisible ? <ChevronUpIcon className="w-4 h-4 ml-auto" /> : <ChevronDownIcon className="w-4 h-4 ml-auto" />}
+                    </button>
+
+                    {isDetailsVisible && (
+                        <div className="mt-3 pl-6 border-l-2 border-slate-200 dark:border-slate-700 space-y-3 text-sm text-slate-600 dark:text-slate-400 animate-fade-in">
+                            {taskData.situation && <div><strong className="font-semibold text-slate-700 dark:text-slate-300">Situation (S):</strong> {taskData.situation}</div>}
+                            {taskData.behavior && <div><strong className="font-semibold text-slate-700 dark:text-slate-300">Behavior (B):</strong> {taskData.behavior}</div>}
+                            {taskData.impact && <div><strong className="font-semibold text-slate-700 dark:text-slate-300">Impact (I):</strong> {taskData.impact}</div>}
+                            {taskData.action && <div><strong className="font-semibold text-slate-700 dark:text-slate-300">Action Item (A):</strong> {taskData.action}</div>}
+                        </div>
+                    )}
+                </div>
+            }
           </div>
         );
       default:

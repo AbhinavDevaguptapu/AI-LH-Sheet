@@ -1,4 +1,3 @@
-
 export interface AnalysisResult {
   matchPercentage: number;
   status: "Meets criteria" | "Needs improvement";
@@ -12,9 +11,22 @@ export enum AnalysisStatus {
   FAILED = 'FAILED',
 }
 
+// Represents the raw data for a task fetched from the Google Sheet
+export interface TaskData {
+  id: string; // Unique ID, e.g., "sheetName-rowIndex"
+  date: string;
+  task: string;
+  taskFrameworkCategory: string;
+  situation: string;
+  behavior: string;
+  impact: string;
+  action: string;
+}
+
+// Represents a task with its analysis state
 export interface Task {
-  id: number;
-  rawText: string;
+  id: string;
+  taskData: TaskData;
   analysis: AnalysisResult | null;
   status: AnalysisStatus;
 }

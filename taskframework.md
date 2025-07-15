@@ -1,4 +1,3 @@
-export const TASK_FRAMEWORK_MD = `
 # Essentials of Task Framework
 
 ## Task Framework
@@ -23,9 +22,9 @@ Completion without any excuses.
 * Within the timeframe
 * With Commitment
 * Your self-esteem improves
-* People's trust in you increases
+* People’s trust in you increases
 
-### Few reasons why people can't stay committed
+### Few reasons why people can’t stay committed
 * Being in comfort zones
 * Having resistances
 * Being disorganised
@@ -45,7 +44,7 @@ Getting complete clarity about the task that we are doing.
 
 ### Without a clear and complete objective
 * Our efforts are wasted
-* Output doesn't serve the purpose
+* Output doesn’t serve the purpose
 * Excess use of resources
 
 ### Few reasons why we may miss the objective
@@ -99,8 +98,8 @@ Quality affects the degree to which we meet the objective.
 
 ### Create Checklists
 * A checklist is a list of specific actions to be performed in a given task.
-* It is important because we can't always rely on our memory.
-* Mark each item in the checklist as done once it's complete.
+* It is important because we can’t always rely on our memory.
+* Mark each item in the checklist as done once it’s complete.
 
 ### Output with a substandard quality
 * Does not fully satisfy the objective
@@ -178,7 +177,7 @@ In review, we check whether or not we are sticking to the following things for e
 * Defined quality standards
 * Defined checklists
 
-Time intervals at which you're going to review should be decided while preparing the ELP.
+Time intervals at which you’re going to review should be decided while preparing the ELP.
 * *Ex. At 10%, 25%, 50%, 100%*
 
 ### Frequency of review should be more
@@ -220,12 +219,12 @@ At the end of the day or twice a day, analyse the tasks that you have done on th
 ### Our focus during R2 - Best Practices
 * The points that worked out well in your execution
 
-### Our focus during R3 - Appreciation / Praise
+### Our focus during R3 – Appreciation / Praise
  
-* Self-Praise - Acknowledge something you did well today
-* Peer-Praise - Recognize someone who helped you or made your day easier
-* Gratitude - Express thanks for support, resources, or insights received
-
+* Self-Praise – Acknowledge something you did well today
+* Peer-Praise – Recognize someone who helped you or made your day easier
+* Gratitude – Express thanks for support, resources, or insights received
+ 
 ### Implementation of action items from learning hour
 * **Every day**
     * Refer to the action items in the morning
@@ -235,9 +234,8 @@ At the end of the day or twice a day, analyse the tasks that you have done on th
     * Check if you are implementing your action items
 
 ### Key Points
-* Analyse your actions but don't judge yourself
+* Analyse your actions but don’t judge yourself
 * Act on Action Items
 * Use only Task framework language
-* Don't worry about the mistakes, feel happy about the progress you're going to make
+* Don’t worry about the mistakes, feel happy about the progress you’re going to make
 * Celebrate successes—big or small—and acknowledge the support you received
-`;
